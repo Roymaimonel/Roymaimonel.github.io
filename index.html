@@ -3,51 +3,246 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <title>FISHEYES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-        rel="stylesheet" />
+        input[type="file"],
+        input[type="text"],
+        input[type="email"],
+        input[type="checkbox"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #d1d1d1;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-    <!-- jquery -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+        label {
+            display: flex;
+            align-items: center;
+            margin: 10px 0 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+        .info-button {
+            background: none;
+            border: none;
+            color: #0071e3;
+            cursor: pointer;
+            font-size: 14px;
+            padding-left: 5px;
+        }
 
-  <script type="module" crossorigin src="/assets/main-CUfDj-xS.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-BrsJ-C8F.css">
+        .hidden {
+            display: none;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #0071e3;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        #progressContainer {
+            width: 100%;
+            background-color: #ddd;
+            margin-top: 10px;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 20px;
+            background-color: #4caf50;
+            text-align: center;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- navbar container -->
-    <nav class="sidenav navbar navbar-expand-lg navbar-dark bg-dark" data-mdb-sidenav-init data-mdb-right="true"></nav>
-    <!-- filter and toggles -->
-    <div class="filter"></div>
+    <h1>Upload a File</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="fileInput">Choose File
+            <button class="info-button" type="button" onclick="alert('Select the file you want to upload.')">ℹ️</button>
+        </label>
+        <input type="file" id="fileInput" name="file" accept="*/*" required>
 
-    <footer>
-        <p>&copy; 2023-2024, 
-            <a href="https://www.linkedin.com/in/ignatius-jenie-1023521b3/" target="_blank">Ignatius Jenie</a>, 
-            <a href="https://b.bintulab.com" target="_blank">Bintu Lab</a>. All Rights Reserved <br>
-            Data by <a href="https://www.linkedin.com/in/roy-maimon-640172211/" target="_blank">Maimon</a> et al. from 
-            <a href="https://cmm.ucsd.edu/research/labs/don-cleveland/index.html" target="_blank">Cleveland Lab</a>. Created with
-            <a href="https://www.linkedin.com/in/edward-lin-s/" target="_blank">Edward Lin</a>, 
-            <a href="https://www.linkedin.com/in/serena-chuang-137942271/" target="_blank">Serena Chuang</a>. <br>
-        </p>
-    </footer>
+        <div class="checkbox-container">
+            <input type="checkbox" id="celltype" name="celltype">
+            <label for="celltype">Celltype Labels
+                <button class="info-button" type="button" onclick="alert('Is there celltype labels')">ℹ️</button>
+            </label>
+        </div>
+        <div id="celltypeFields" class="hidden">
+            <label for="celltypeColumn">Celltype Column
+                <button class="info-button" type="button" onclick="alert('Which column name is the celltype column in the .obs')">ℹ️</button>
+            </label>
+            <input type="text" id="celltypeColumn" name="celltype_column">
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="celltypePaletteAutoGenerated" name="celltype_palette_auto_generated">
+                <label for="celltypePaletteAutoGenerated">Auto-generated Colors
+                    <button class="info-button" type="button" onclick="alert('Auto generated colors or not')">ℹ️</button>
+                </label>
+            </div>
+            <div id="paletteFields" class="hidden">
+                <label for="unsColorsColumn">UNS Colors Column
+                    <button class="info-button" type="button" onclick="alert('Get from the .uns[uns_colors_column]')">ℹ️</button>
+                </label>
+                <input type="text" id="unsColorsColumn" name="uns_colors_column">
+
+                <label for="inputColorPalette">Input Color Palette (JSON String)
+                    <button class="info-button" type="button" onclick="alert('Input json_string color palette')">ℹ️</button>
+                </label>
+                <input type="text" id="inputColorPalette" name="input_color_palette">
+            </div>
+        </div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="rawGeneCounts" name="raw_gene_counts">
+            <label for="rawGeneCounts">Use Raw Gene Counts
+                <button class="info-button" type="button" onclick="alert('Use raw gene counts')">ℹ️</button>
+            </label>
+        </div>
+        <div id="rawGeneFields" class="hidden">
+            <label for="rawColumn">Raw Column
+                <button class="info-button" type="button" onclick="alert('Get .obsm[column]')">ℹ️</button>
+            </label>
+            <input type="text" id="rawColumn" name="raw_column">
+        </div>
+
+        <label for="email">Email
+            <button class="info-button" type="button" onclick="alert('Email')">ℹ️</button>
+        </label>
+        <input type="email" id="email" name="email">
+
+        <label for="dataName">Data Set Name
+            <button class="info-button" type="button" onclick="alert('Name of data set')">ℹ️</button>
+        </label>
+        <input type="text" id="dataName" name="data_name">
+
+        <label for="contactName">Contact Name
+            <button class="info-button" type="button" onclick="alert('Name of person')">ℹ️</button>
+        </label>
+        <input type="text" id="contactName" name="contact_name">
+
+        <button type="submit">Upload</button>
+    </form>
+    <div id="progressContainer">
+        <div id="progressBar">0%</div>
+    </div>
+    <div id="progress"></div>
+    <script>
+        const form = document.getElementById('uploadForm');
+        const progressDiv = document.getElementById('progress');
+        const progressBar = document.getElementById('progressBar');
+
+        const celltype = document.getElementById('celltype');
+        const celltypeFields = document.getElementById('celltypeFields');
+        const celltypePaletteAutoGenerated = document.getElementById('celltypePaletteAutoGenerated');
+        const paletteFields = document.getElementById('paletteFields');
+
+        const rawGeneCounts = document.getElementById('rawGeneCounts');
+        const rawGeneFields = document.getElementById('rawGeneFields');
+
+        celltype.addEventListener('change', () => {
+            celltypeFields.classList.toggle('hidden', !celltype.checked);
+        });
+
+        celltypePaletteAutoGenerated.addEventListener('change', () => {
+            paletteFields.classList.toggle('hidden', celltypePaletteAutoGenerated.checked);
+        });
+
+        rawGeneCounts.addEventListener('change', () => {
+            rawGeneFields.classList.toggle('hidden', !rawGeneCounts.checked);
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            const startTime = Date.now();
+            const xhr = new XMLHttpRequest();
+
+            xhr.upload.addEventListener('progress', (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    progressBar.style.width = percentComplete + '%';
+                    progressBar.innerHTML = Math.round(percentComplete) + '%';
+                }
+            });
+
+            xhr.addEventListener('load', () => {
+                const endTime = Date.now();
+                const duration = (endTime - startTime) / 1000; // in seconds
+                const fileSize = (formData.get('file').size / 1024 / 1024).toFixed(2); // in MB
+
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    progressDiv.innerHTML = `File uploaded successfully in ${duration} seconds. File size: ${fileSize} MB`;
+                } else {
+                    progressDiv.innerHTML = `File upload failed: ${xhr.responseText}`;
+                }
+            });
+
+            xhr.addEventListener('error', () => {
+                progressDiv.innerHTML = `Error: ${xhr.statusText}`;
+            });
+
+            xhr.open('POST', 'https://upload.merfisheyes.com/upload');
+            xhr.send(formData);
+        });
+    </script>
 </body>
 
 </html>
